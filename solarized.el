@@ -665,7 +665,8 @@
        ((,class (:inherit org-agenda-date :slant italic underline: t))) t)
      `(org-agenda-done ((,class (:foreground ,green))) t)
      `(org-archived ((,class (:foreground ,solarized-comments :weight normal))))
-     `(org-block ((,class (:foreground ,solarized-comments))))
+     `(org-block ((,class (:foreground ,solarized-comments :background ,solarized-hl))))
+     `(org-block-background ((,class (:background ,solarized-hl))))
      `(org-block-begin-line ((,class (:foreground ,solarized-comments :slant italic))))
      `(org-checkbox ((,class (:background ,solarized-bg :foreground ,solarized-fg
                                           :box (:line-width 1 :style released-button)))))
