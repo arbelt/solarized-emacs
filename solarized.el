@@ -1015,6 +1015,17 @@
      ;; window-number-mode
      `(window-number-face ((,class (:foreground ,green))))
 
+     ;; workgroups
+     `(wg-mode-line-face ((,class (:foreground ,blue :weight bold))))
+     `(wg-divider-face ((,class (:foreground ,solarized-fg-lc))))
+     `(wg-brace-face ((,class (:foreground ,solarized-fg-lc))))
+     `(wg-current-workgroup-face ((,class (:foreground ,magenta :weight bold))))
+     `(wg-previous-workgroup-face ((,class (:foreground ,blue))))
+     `(wg-message-face ((,class (:foreground ,green))))
+     `(wg-frame-face ((,class (:foreground ,orange))))
+     `(wg-filename-face ((,class (:foreground ,yellow))))
+     `(wg-command-face ((,class (:foreground ,blue))))
+
      ;; yascroll
      `(yascroll:thumb-text-area
        ((,class (:foreground ,solarized-comments :background ,solarized-comments))))
