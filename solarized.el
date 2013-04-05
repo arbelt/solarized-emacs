@@ -1005,6 +1005,7 @@
      `(wl-highlight-summary-new-face ((,class (:foreground ,blue))))
      `(wl-highlight-summary-normal-face ((,class (:foreground ,solarized-fg))))
      `(wl-highlight-summary-thread-top-face ((,class (:foreground ,yellow))))
+     `(wl-highlight-summary-important-flag-face ((,class (:foreground ,orange))))
      `(wl-highlight-thread-indent-face ((,class (:foreground ,magenta))))
      `(wl-highlight-summary-refiled-face ((,class (:foreground ,solarized-fg))))
      `(wl-highlight-summary-displaying-face ((,class (:underline t :weight bold))))
