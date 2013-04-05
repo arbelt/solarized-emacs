@@ -211,7 +211,8 @@
                              :background ,solarized-bg
                              :box (:line-width -1 :style released-button)))))
      `(region ((,class (:foreground ,solarized-bg :background ,solarized-emph))))
-     `(secondary-selection ((,class (:background ,solarized-bg))))
+     `(secondary-selection ((,class (:background ,solarized-hl))))
+
      `(trailing-whitespace ((,class (:background ,red))))
      `(vertical-border ((,class (:foreground ,solarized-fg))))
 
@@ -303,6 +304,10 @@
      `(ctbl:face-continue-bar ((,class (:background ,solarized-hl :foreground ,solarized-bg))))
      `(ctbl:face-row-select ((,class (:background ,cyan :foreground ,solarized-bg))))
 
+     ;; coffee
+     `(coffee-mode-class-name ((,class (:foreground ,yellow :weight bold))))
+     `(coffee-mode-function-param ((,class (:foreground ,violet :slant italic))))
+
      ;; custom
      `(custom-variable-tag ((,class (:foreground ,cyan))))
      `(custom-comment-tag ((,class (:foreground ,solarized-comments))))
@@ -340,6 +345,10 @@
      `(eshell-ls-product ((,class (:inherit font-lock-doc))))
      `(eshell-ls-special ((,class (:foreground ,yellow :weight bold))))
      `(eshell-ls-symlink ((,class (:foreground ,cyan :weight bold))))
+
+     ;; fic
+     `(fic-author-face ((,class (:background ,solarized-bg :foreground ,orange :underline t :slant italic))))
+     `(fic-face ((,class (:background ,solarized-bg :foreground ,orange :weight normal :slant italic))))
 
      ;; flymake
      `(flymake-errline
@@ -382,7 +391,7 @@
      ;; git-gutter
      `(git-gutter:added ((,class (:background ,green :foreground ,solarized-bg  :weight bold))))
      `(git-gutter:deleted ((,class (:background ,red :foreground ,solarized-bg  :weight bold))))
-     `(git-gutter:modified ((,class (:background ,magenta :foreground ,solarized-bg :weight bold))))
+     `(git-gutter:modified ((,class (:background ,blue :foreground ,solarized-bg :weight bold))))
      `(git-gutter:unchanged ((,class (:background ,solarized-hl :foreground ,solarized-bg  :weight bold))))
      ;; I use the following git-gutter settings along with those faces
      ;; (when window-system
@@ -395,7 +404,12 @@
      ;; git-gutter-fr
      `(git-gutter-fr:added ((,class (:foreground ,green  :weight bold))))
      `(git-gutter-fr:deleted ((,class (:foreground ,red :weight bold))))
-     `(git-gutter-fr:modified ((,class (:foreground ,magenta :weight bold))))
+     `(git-gutter-fr:modified ((,class (:foreground ,blue :weight bold))))
+
+     ;; guide-key
+     `(guide-key/highlight-command-face ((,class (:foreground ,blue))))
+     `(guide-key/key-face ((,class (:foreground ,solarized-comments))))
+     `(guide-key/prefix-command-face ((,class (:foreground ,green))))
 
      ;; gnus
      `(gnus-group-mail-1-face ((,class (:weight bold :inherit gnus-group-mail-1-empty))))
@@ -532,19 +546,19 @@
      `(ido-virtual ((,class (:foreground ,cyan))))
 
      ;; js2-mode colors
-     `(js2-error-face ((,class (:foreground ,red))))
-     `(js2-external-variable-face ((,class (:foreground ,orange))))
-     `(js2-function-param-face ((,class (:foreground ,green))))
-     `(js2-instance-member-face ((,class (:foreground ,magenta))))
-     `(js2-jsdoc-html-tag-delimiter-face ((,class (:foreground ,cyan))))
-     `(js2-jsdoc-html-tag-name-face ((,class (:foreground ,orange))))
-     `(js2-jsdoc-tag-face ((,class (:foreground ,cyan))))
-     `(js2-jsdoc-type-face ((,class (:foreground ,blue))))
-     `(js2-jsdoc-value-face ((,class (:foreground ,violet))))
-     `(js2-magic-paren-face ((,class (:underline t))))
-     `(js2-private-function-call-face ((,class (:foreground ,yellow))))
-     `(js2-private-member-face ((,class (:foreground ,blue))))
-     `(js2-warning-face ((,class (:underline ,orange))))
+     `(js2-error ((,class (:foreground ,red))))
+     `(js2-external-variable ((,class (:foreground ,orange))))
+     `(js2-function-param ((,class (:foreground ,green))))
+     `(js2-instance-member ((,class (:foreground ,magenta))))
+     `(js2-jsdoc-html-tag-delimiter ((,class (:foreground ,cyan))))
+     `(js2-jsdoc-html-tag-name ((,class (:foreground ,orange))))
+     `(js2-jsdoc-tag ((,class (:foreground ,cyan))))
+     `(js2-jsdoc-type ((,class (:foreground ,blue))))
+     `(js2-jsdoc-value ((,class (:foreground ,violet))))
+     `(js2-magic-paren ((,class (:underline t))))
+     `(js2-private-function-call ((,class (:foreground ,yellow))))
+     `(js2-private-member ((,class (:foreground ,blue))))
+     `(js2-warning ((,class (:underline ,orange))))
 
      ;; jedi
      `(jedi:highlight-function-argument ((,class (:inherit bold))))
@@ -627,6 +641,10 @@
      `(moccur-edit-reject-face ((,class (:foreground ,red))))
      `(moccur-face ((,class (:background ,solarized-hl :foreground ,solarized-emph
                                          :weight bold))))
+     `(search-buffers-face ((,class (:background ,solarized-hl :foreground ,solarized-emph
+                                                 :weight bold))))
+     `(search-buffers-header-face ((,class (:background ,solarized-hl :foreground ,yellow
+                                                        :weight bold))))
 
      ;; mu4e
      `(mu4e-cited-1-face ((,class (:foreground ,green :slant italic :weight normal))))
@@ -652,7 +670,7 @@
      `(nav-face-hfile ((,class (:foreground ,red))))
 
      ;; nav-flash
-     `(nav-flash-face ((,class (:foreground ,orange :background ,solarized-hl))))
+     `(nav-flash-face ((,class (:background ,solarized-hl))))
 
      ;; org-mode
      `(org-agenda-structure
@@ -689,14 +707,14 @@
      `(org-sexp-date ((,class (:foreground ,violet))))
      `(org-scheduled ((,class (:foreground ,green))))
      `(org-scheduled-previously ((,class (:foreground ,yellow))))
-     `(org-scheduled-today ((,class (:foreground ,blue :weight bold))))
+     `(org-scheduled-today ((,class (:foreground ,blue :weight normal))))
      `(org-special-keyword ((,class (:foreground ,solarized-comments :weight bold))))
      `(org-table ((,class (:foreground ,green))))
      `(org-tag ((,class (:weight bold))))
      `(org-time-grid ((,class (:foreground ,cyan))))
      `(org-todo ((,class (:foreground ,red :weight bold))))
-     `(org-upcoming-deadline ((,class (:foreground ,yellow ))))
-     `(org-warning ((,class (:foreground ,orange :weight bold :underline t))))
+     `(org-upcoming-deadline ((,class (:foreground ,yellow  :weight normal :underline nil))))
+     `(org-warning ((,class (:foreground ,orange :weight normal :underline nil))))
      ;; org-habit (clear=blue, ready=green, alert=yellow, overdue=red. future=lower contrast)
      `(org-habit-clear-face ((,class (:background ,blue-lc :foreground ,blue-hc))))
      `(org-habit-clear-future-face ((,class (:background ,blue-lc))))
@@ -900,15 +918,25 @@
      ;; w3m
      `(w3m-anchor ((,class (:inherit link))))
      `(w3m-arrived-anchor ((,class (:inherit link-visited))))
-     `(w3m-form ((,class (:background ,base03 :foreground ,solarized-fg))))
-     `(w3m-header-line-location-title ((,class (:background ,base02 :foreground ,yellow))))
-     `(w3m-header-line-location-content ((,class (:background ,base02 :foreground ,solarized-fg))))
+     `(w3m-form ((,class (:background ,solarized-bg :foreground ,solarized-fg))))
+     `(w3m-header-line-location-title ((,class (:background ,solarized-hl :foreground ,yellow))))
+     `(w3m-header-line-location-content ((,class (:background ,solarized-hl :foreground ,solarized-fg))))
      `(w3m-bold ((,class (:foreground ,solarized-emph :weight bold))))
      `(w3m-image-anchor ((,class (:background ,solarized-bg :foreground ,cyan :inherit link))))
      `(w3m-image ((,class (:background ,solarized-bg :foreground ,cyan))))
      `(w3m-lnum-minibuffer-prompt ((,class (:foreground ,solarized-emph))))
      `(w3m-lnum-match ((,class (:background ,solarized-hl))))
      `(w3m-lnum ((,class (:underline nil :bold nil :foreground ,red))))
+     `(w3m-session-select ((,class (:foreground ,solarized-fg))))
+     `(w3m-session-selected ((,class (:foreground ,solarized-emph :bold t :underline t))))
+     `(w3m-tab-background ((,class (:background ,solarized-bg :foreground ,solarized-fg))))
+     `(w3m-tab-selected-background ((,class (:background ,solarized-bg :foreground ,solarized-fg))))
+     `(w3m-tab-mouse ((,class (:background ,solarized-hl :foreground ,yellow))))
+     `(w3m-tab-selected ((,class (:background ,solarized-hl :foreground ,solarized-emph :bold t))))
+     `(w3m-tab-unselected ((,class (:background ,solarized-hl :foreground ,solarized-fg))))
+     `(w3m-tab-selected-retrieving ((,class (:background ,solarized-hl :foreground ,red))))
+     `(w3m-tab-unselected-retrieving ((,class (:background ,solarized-hl :foreground ,orange))))
+     `(w3m-tab-unselected-unseen ((,class (:background ,solarized-hl :foreground ,violet))))
 
      ;; web-mode
      `(web-mode-builtin-face ((,class (:foreground ,red))))
