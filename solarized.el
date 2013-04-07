@@ -1041,7 +1041,6 @@
      theme-name
      `(ansi-color-names-vector [,solarized-bg ,red ,green ,yellow
                                              ,blue ,magenta ,cyan ,solarized-fg])
-     `(ansi-term-color-vector [,base01 ,red ,green ,yellow ,blue ,magenta ,cyan ,base03])
      ;; fill-column-indicator
      `(fci-rule-color ,solarized-hl)
 
