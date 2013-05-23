@@ -767,6 +767,9 @@
      `(outline-2 ((,class (:inherit outline-3 :height 1.0))))
      `(outline-1 ((,class (:inherit outline-2 :height 1.0))))
 
+     ;; perspective
+     `(persp-selected-face ((,class (:foreground ,blue :weight bold))))
+
      ;; pretty-mode
      `(pretty-mode-symbol-face  ((,class (:foreground ,green))))
 
