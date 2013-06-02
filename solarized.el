@@ -127,7 +127,7 @@
      `(match ((,class (:background ,solarized-hl :foreground ,solarized-emph :weight bold))))
      `(cursor ((,class (:foreground ,solarized-bg :background ,solarized-fg :inverse-video t))))
      `(escape-glyph-face ((,class (:foreground ,red))))
-     `(fringe ((,class (:foreground ,solarized-fg :background ,solarized-hl))))
+     `(fringe ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
      `(header-line ((,class (:foreground ,yellow
                                          :background ,solarized-hl
                                          :box (:line-width -1 :style released-button)))))
@@ -137,7 +137,7 @@
      `(success ((,class (:foreground ,green ))))
      `(warning ((,class (:foreground ,yellow ))))
      `(error ((,class (:foreground ,orange))))
-     `(lazy-highlight ((,class (:foreground ,solarized-emph :background ,solarized-hl :bold t))))
+     `(lazy-highlight ((,class (:foreground ,solarized-bg :background ,yellow :weight normal))))
      `(escape-glyph ((,class (:foreground ,violet))))
 
      ;; compilation
@@ -190,7 +190,7 @@
      `(grep-match-face ((,class (:foreground ,orange :weight bold))))
 
      ;; faces used by isearch
-     `(isearch ((,class (:foreground ,yellow :background ,solarized-hl :bold t))))
+     `(isearch ((,class (:foreground ,solarized-bg :background ,magenta :weight normal))))
      `(isearch-fail ((,class (:foreground ,red :background ,solarized-bg :bold t))))
 
      ;; man
@@ -202,14 +202,27 @@
      `(menu ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
      `(minibuffer-prompt ((,class (:foreground ,solarized-emph))))
      `(mode-line
-       ((,class (:foreground ,solarized-fg
-                             :background ,solarized-hl
-                             :box (:line-width -1 :style released-button)))))
+       ((,class (:inverse-video unspecified
+                                :underline unspecified
+                                :foreground ,solarized-fg
+                                :background ,solarized-hl
+                                :box (:line-width 1 :color ,solarized-hl
+                                                  :style unspecified)))))
      `(mode-line-buffer-id ((,class (:foreground ,solarized-emph :weight bold))))
      `(mode-line-inactive
-       ((,class (:foreground ,solarized-fg
-                             :background ,solarized-bg
-                             :box (:line-width -1 :style released-button)))))
+       ((,class (:inverse-video unspecified
+                                :underline unspecified
+                                :foreground ,solarized-comments
+                                :background ,solarized-bg
+                                :box (:line-width 1 :color ,solarized-hl
+                                                  :style unspecified)))))
+     `(header-line
+       ((,class (:inverse-video unspecified
+                                :underline unspecified
+                                :foreground ,solarized-emph
+                                :background ,solarized-hl
+                                :box (:line-width 1 :color ,solarized-hl
+                                                  :style unspecified)))))
      `(region ((,class (:foreground ,solarized-bg :background ,solarized-emph))))
      `(secondary-selection ((,class (:background ,solarized-hl))))
 
@@ -218,13 +231,13 @@
 
      ;; font lock
      `(font-lock-builtin-face ((,class (:foreground ,blue :slant italic))))
-     `(font-lock-comment-delimiter-face ((,class (:foreground ,solarized-comments))))
+     `(font-lock-comment-delimiter-face ((,class (:foreground ,solarized-comments :slant italic))))
      `(font-lock-comment-face ((,class (:foreground ,solarized-comments))))
      `(font-lock-constant-face ((,class (:foreground ,blue :weight bold))))
      `(font-lock-doc-face ((,class (:foreground ,cyan :slant italic))))
      `(font-lock-doc-string-face ((,class (:foreground ,blue))))
      `(font-lock-function-name-face ((,class (:foreground ,blue))))
-     `(font-lock-keyword-face ((,class (:foreground ,green :weight bold))))
+     `(font-lock-keyword-face ((,class (:foreground ,green :weight normal))))
      `(font-lock-negation-char-face ((,class (:foreground ,solarized-fg))))
      `(font-lock-preprocessor-face ((,class (:foreground ,blue))))
      `(font-lock-string-face ((,class (:foreground ,cyan))))
@@ -241,6 +254,27 @@
        ((,class (:foreground ,solarized-comments :background ,solarized-bg :inverse-video nil))))
      `(ace-jump-face-foreground
        ((,class (:foreground ,red :background ,solarized-bg :inverse-video nil))))
+
+     ;; auctex
+     `(font-latex-bold-face ((,class (:inherit bold :foreground ,solarized-emph))))
+     `(font-latex-doctex-documentation-face ((,class (:background unspecified))))
+     `(font-latex-doctex-preprocessor-face ((,class (:inherit (font-latex-doctex-documentation-face font-lock-builtin-face font-lock-preprocessor-face)))))
+     `(font-latex-italic-face ((,class (:inherit italic :foreground ,solarized-emph))))
+     `(font-latex-math-face ((,class (:foreground ,violet))))
+     `(font-latex-sectioning-0-face ((,class (:inherit font-latex-sectioning-1-face :height 1.1))))
+     `(font-latex-sectioning-1-face ((,class (:inherit font-latex-sectioning-2-face :height 1.1))))
+     `(font-latex-sectioning-2-face ((,class (:inherit font-latex-sectioning-3-face :height 1.1))))
+     `(font-latex-sectioning-3-face ((,class (:inherit font-latex-sectioning-4-face :height 1.1))))
+     `(font-latex-sectioning-4-face ((,class (:inherit font-latex-sectioning-5-face :height 1.1))))
+     `(font-latex-sectioning-5-face ((,class (:inherit variable-pitch :foreground ,yellow :weight bold))))
+     `(font-latex-sedate-face ((,class (:foreground ,solarized-emph))))
+     `(font-latex-slide-title-face ((,class (:inherit (variable-pitch font-lock-type-face) :weight bold :height 1.2))))
+     `(font-latex-string-face ((,class (:foreground ,cyan))))
+     `(font-latex-subscript-face ((,class (:height 0.8))))
+     `(font-latex-superscript-face ((,class (:height 0.8))))
+     `(font-latex-verbatim-face ((,class (:inherit fixed-pitch :foreground ,solarized-fg :slant italic))))
+     `(font-latex-warning-face ((,class (:inherit bold :foreground ,orange))))
+
 
      ;; auto-complete
      `(ac-candidate-face ((,class (:background ,solarized-hl :foreground ,cyan))))
@@ -299,6 +333,13 @@
      `(clojure-test-error-face ((t (:foreground ,red :weight bold :underline t))))
      `(clojure-test-success-face ((t (:foreground ,green :weight bold :underline t))))
 
+     ;; cscope
+     `(cscope-file-face ((,class (:foreground ,green :weight bold))))
+     `(cscope-function-face ((,class (:foreground ,blue))))
+     `(cscope-line-number-face ((,class (:foreground ,yellow))))
+     `(cscope-line-face ((,class (:foreground ,solarized-fg))))
+     `(cscope-mouse-face ((,class (:background ,blue :foreground ,solarized-fg))))
+
      ;; ctable
      `(ctbl:face-cell-select ((,class (:background ,blue :foreground ,solarized-bg))))
      `(ctbl:face-continue-bar ((,class (:background ,solarized-hl :foreground ,solarized-bg))))
@@ -316,11 +357,14 @@
 
      ;; diff
      `(diff-added ((,class (:foreground ,green :background ,solarized-bg))))
-     `(diff-changed ((,class (:foreground ,yellow :background ,solarized-bg))))
+     `(diff-changed ((,class (:foreground ,blue :background ,solarized-bg))))
      `(diff-removed ((,class (:foreground ,red :background ,solarized-bg))))
      `(diff-header ((,class (:background ,solarized-bg))))
      `(diff-file-header
        ((,class (:background ,solarized-bg :foreground ,solarized-fg :weight bold))))
+     `(diff-refine-added ((,class :foreground ,solarized-bg :background ,green)))
+     `(diff-refine-change ((,class :foreground ,solarized-bg :background ,blue)))
+     `(diff-refine-removed ((,class (:foreground ,solarized-bg :background ,red))))
 
      ;; ediff
      `(ediff-fine-diff-A ((,class (:background ,orange-lc))))
@@ -352,20 +396,41 @@
 
      ;; flymake
      `(flymake-errline
-       ((,class (:foreground ,red-hc :background ,red-lc :weight bold :underline t))))
-     `(flymake-infoline ((,class (:foreground ,green-hc :background ,green-lc))))
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,red) :inherit unspecified :foreground unspecified :background unspecified))
+        (,class (:foreground ,red-hc :background ,red-lc :weight bold :underline t))))
+     `(flymake-infoline
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,green) :inherit unspecified :foreground unspecified :background unspecified))
+        (,class (:foreground ,green-hc :background ,green-lc))))
      `(flymake-warnline
-       ((,class (:foreground ,yellow-hc :background ,yellow-lc :weight bold :underline t))))
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,yellow) :inherit unspecified :foreground unspecified :background unspecified))
+        (,class (:foreground ,yellow-hc :background ,yellow-lc :weight bold :underline t))))
 
      ;; flycheck
-     `(flycheck-error-face
-       ((,class (:foreground ,red-hc :background ,red-lc :weight bold :underline t))))
-     `(flycheck-warning-face
-       ((,class (:foreground ,yellow-hc :background ,yellow-lc :weight bold :underline t))))
+     `(flycheck-error
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,red) :inherit unspecified))
+        (,class (:foreground ,red-hc :background ,red-lc :weight bold :underline t))))
+     `(flycheck-warning
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,yellow) :inherit unspecified))
+        (,class (:foreground ,yellow-hc :background ,yellow-lc :weight bold :underline t))))
+     `(flycheck-fringe-error
+       ((,class (:foreground ,red-hc :background ,red-lc :weight bold))))
+     `(flycheck-fringe-warning
+       ((,class (:foreground ,yellow-hc :background ,yellow-lc :weight bold))))
 
      ;; flyspell
-     `(flyspell-duplicate ((,class (:foreground ,yellow :weight bold :underline t))))
-     `(flyspell-incorrect ((,class (:foreground ,red :weight bold :underline t))))
+     `(flyspell-duplicate
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,yellow) :inherit unspecified))
+        (,class (:foreground ,yellow :weight bold :underline t))))
+     `(flyspell-incorrect
+       ((,(append '((supports :underline (:style wave))) class)
+         (:underline (:style wave :color ,red) :inherit unspecified))
+        (,class (:foreground ,red :weight bold :underline t))))
 
      ;; erc
      `(erc-action-face ((,class (:inherit erc-default-face))))
@@ -533,6 +598,10 @@
      `(highlight-changes ((,class (:foreground ,orange))))
      `(highlight-changes-delete ((,class (:foreground ,red :underline t))))
 
+     ;; highlight-indentation
+     `(highlight-indentation-face ((,class (:background ,solarized-hl))))
+     `(highlight-indentation-current-column-face((,class (:background ,solarized-hl))))
+
      ;; hl-line-mode
      `(hl-line ((,class (:background ,solarized-hl))))
      `(hl-line-face ((,class (:background ,solarized-hl))))
@@ -581,12 +650,18 @@
      `(jedi:highlight-function-argument ((,class (:inherit bold))))
 
      ;; linum-mode
-     `(linum ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+     `(linum ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+
+     ;; lusty-explorer
+     `(lusty-directory-face ((,class (:inherit dired-directory))))
+     `(lusty-file-face ((,class nil)))
+     `(lusty-match-face ((,class (:inherit ido-first-match))))
+     `(lusty-slash-face ((,class (:foreground ,cyan :weight bold))))
 
      ;; magit
      `(magit-section-title ((,class (:foreground ,yellow :weight bold))))
      `(magit-branch ((,class (:foreground ,orange :weight bold))))
-     `(magit-item-highlight ((,class (:background ,solarized-hl))))
+     `(magit-item-highlight ((,class (:background ,solarized-hl :weight unspecified))))
      `(magit-log-author ((,class (:foreground ,cyan))))
      `(magit-log-graph ((,class (:foreground ,solarized-comments))))
      `(magit-log-head-label-bisect-bad ((,class (:background ,red-hc :foreground ,red-lc :box 1))))
@@ -758,14 +833,14 @@
      `(org-mode-line-clock-overrun ((,class (:inherit modeline :background ,red))))
 
      ;; outline
-     `(outline-8 ((,class (:inherit default))))
-     `(outline-7 ((,class (:inherit outline-8 :height 1.0))))
-     `(outline-6 ((,class (:inherit outline-7 :height 1.0))))
-     `(outline-5 ((,class (:inherit outline-6 :height 1.0))))
-     `(outline-4 ((,class (:inherit outline-5 :height 1.0))))
-     `(outline-3 ((,class (:inherit outline-4 :height 1.0))))
-     `(outline-2 ((,class (:inherit outline-3 :height 1.0))))
-     `(outline-1 ((,class (:inherit outline-2 :height 1.0))))
+     `(outline-1 ((,class (:inherit org-level-1))))
+     `(outline-2 ((,class (:inherit org-level-2))))
+     `(outline-3 ((,class (:inherit org-level-3))))
+     `(outline-4 ((,class (:inherit org-level-4))))
+     `(outline-5 ((,class (:inherit org-level-5))))
+     `(outline-6 ((,class (:inherit org-level-6))))
+     `(outline-7 ((,class (:inherit org-level-7))))
+     `(outline-8 ((,class (:inherit org-level-8))))
 
      ;; perspective
      `(persp-selected-face ((,class (:foreground ,blue :weight bold))))
@@ -827,6 +902,11 @@
      `(sp-pair-overlay-face ((,class (:background ,solarized-hl))))
      `(sp-wrap-overlay-face ((,class (:background ,solarized-hl))))
      `(sp-wrap-tag-overlay-face ((,class (:background ,solarized-hl))))
+     `(sp-show-pair-enclosing ((,class (:inherit highlight))))
+     `(sp-show-pair-match-face
+       ((,class (:foreground ,cyan :background ,solarized-bg :weight normal :inverse-video t))))
+     `(sp-show-pair-mismatch-face
+       ((,class (:foreground ,red :background ,solarized-bg :weight normal :inverse-video t))))
 
      ;; show-paren
      `(show-paren-match
@@ -979,6 +1059,11 @@
      `(web-mode-string-face ((,class (:foreground ,cyan))))
      `(web-mode-type-face ((,class (:foreground ,yellow))))
      `(web-mode-variable-name-face ((,class (:foreground ,blue))))
+     `(web-mode-server-background-face ((,class (:background ,solarized-bg))))
+     `(web-mode-server-comment-face ((,class (:inherit web-mode-comment-face))))
+     `(web-mode-server-string-face ((,class (:inherit web-mode-string-face))))
+     `(web-mode-warning-face ((,class (:inherit font-lock-warning-face))))
+     `(web-mode-whitespaces-face ((,class (:background ,red))))
 
      ;; whitespace-mode
      `(whitespace-space ((,class (:background ,solarized-bg :foreground ,yellow-lc
@@ -1030,6 +1115,14 @@
      `(wl-highlight-thread-indent-face ((,class (:foreground ,magenta))))
      `(wl-highlight-summary-refiled-face ((,class (:foreground ,solarized-fg))))
      `(wl-highlight-summary-displaying-face ((,class (:underline t :weight bold))))
+
+
+     ;; weechat
+     `(weechat-error-face ((,class (:inherit error))))
+     `(weechat-highlight-face ((,class (:foreground ,solarized-emph :weight bold))))
+     `(weechat-nick-self-face ((,class (:foreground ,green :weight unspecified :inverse-video t))))
+     `(weechat-prompt-face ((,class (:inherit minibuffer-prompt))))
+     `(weechat-time-face ((,class (:foreground ,solarized-comments))))
 
      ;; which-func-mode
      `(which-func ((,class (:foreground ,green))))
@@ -1093,7 +1186,17 @@
         (340 . "#2790C3")
         (360 . ,blue)))
      `(vc-annotate-very-old-color nil)
-     `(vc-annotate-background nil))
+     `(vc-annotate-background nil)
+
+     `(weechat-color-list
+       '(unspecified ,base03 ,base02
+                     ,red-d ,red
+                     ,green-d ,green
+                     ,yellow-d ,yellow
+                     ,blue-d ,blue
+                     ,magenta-d ,magenta
+                     ,cyan-d ,cyan
+                     ,base0 ,base00)))
 
     ;; call chained theme function
     (when childtheme (funcall childtheme))))
@@ -1105,6 +1208,7 @@
 
 ;; Local Variables:
 ;; no-byte-compile: t
+;; eval: (when (fboundp 'rainbow-mode) (rainbow-mode 1))
 ;; End:
 
 (provide 'solarized)
