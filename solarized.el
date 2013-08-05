@@ -146,17 +146,20 @@ customize the resulting theme."
      `(escape-glyph ((,class (:foreground ,violet))))
 
      ;; compilation
-     `(compilation-column-face ((,class (:foreground ,yellow))))
-     `(compilation-enter-directory-face ((,class (:foreground ,green))))
-     `(compilation-error-face ((,class (:foreground ,red :weight bold :underline t))))
-     `(compilation-face ((,class (:foreground ,solarized-fg))))
-     `(compilation-info-face ((,class (:foreground ,blue))))
-     `(compilation-info ((,class (:foreground ,green :underline t))))
-     `(compilation-leave-directory-face ((,class (:foreground ,green))))
-     `(compilation-line-face ((,class (:foreground ,yellow))))
-     `(compilation-line-number ((,class (:foreground ,yellow))))
-     `(compilation-message-face ((,class (:foreground ,blue))))
-     `(compilation-warning-face ((,class (:foreground ,yellow :weight bold :underline t))))
+     `(compilation-column-face ((,class (:foreground ,cyan :underline nil))))
+     `(compilation-column-number ((,class (:inherit font-lock-doc-face :foreground ,cyan
+                                                    :underline nil))))
+     `(compilation-enter-directory-face ((,class (:foreground ,green :underline nil))))
+     `(compilation-error ((,class (:inherit error :underline nil))))
+     `(compilation-error-face ((,class (:foreground ,red : :underline nil))))
+     `(compilation-face ((,class (:foreground ,solarized-fg :underline nil))))
+     `(compilation-info ((,class (:foreground ,solarized-comments :underline nil :bold nil))))
+     `(compilation-info-face ((,class (:foreground ,blue :underline nil))))
+     `(compilation-leave-directory-face ((,class (:foreground ,green :underline nil))))
+     `(compilation-line-face ((,class (:foreground ,green :underline nil))))
+     `(compilation-line-number ((,class (:foreground ,green :underline nil))))
+     `(compilation-warning ((,class (:inherit warning :underline nil))))
+     `(compilation-warning-face ((,class (:foreground ,yellow :weight normal :underline nil))))
 
      `(compilation-mode-line-exit
        ((,class (:inherit compilation-info :foreground ,green :weight bold))))
@@ -341,13 +344,13 @@ customize the resulting theme."
      `(ac-yasnippet-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
 
      ;; auto highlight symbol
-     `(ahs-definition-face ((,class (:foreground ,solarized-bg :background ,blue
-                                                 :underline t))))
-     `(ahs-edit-mode-face ((,class (:foreground ,solarized-bg :background ,yellow))))
-     `(ahs-face ((,class (:foreground ,solarized-bg :background ,blue))))
-     `(ahs-plugin-bod-face ((,class (:foreground ,solarized-bg :background ,blue))))
-     `(ahs-plugin-defalt-face ((,class (:foreground ,solarized-bg :background ,cyan))))
-     `(ahs-plugin-whole-buffer-face ((,class (:foreground ,solarized-bg :background ,green))))
+     `(ahs-definition-face ((,class (:foreground ,magenta :background ,solarized-bg
+                                                 :slant normal))))
+     `(ahs-edit-mode-face ((,class (:foreground ,solarized-bg :background ,magenta))))
+     `(ahs-face ((,class (:foreground ,magenta :background ,solarized-bg))))
+     `(ahs-plugin-bod-face ((,class (:foreground ,magenta :background unspecified ))))
+     `(ahs-plugin-defalt-face ((,class (:foreground ,magenta :background unspecified))))
+     `(ahs-plugin-whole-buffer-face ((,class (:foreground ,magenta  :background unspecified))))
      `(ahs-warning-face ((,class (:foreground ,red :weight bold))))
 
      ;; android mode
@@ -401,9 +404,11 @@ customize the resulting theme."
      `(cscope-mouse-face ((,class (:background ,blue :foreground ,solarized-fg))))
 
      ;; ctable
-     `(ctbl:face-cell-select ((,class (:background ,blue :foreground ,solarized-bg))))
-     `(ctbl:face-continue-bar ((,class (:background ,solarized-hl :foreground ,solarized-bg))))
-     `(ctbl:face-row-select ((,class (:background ,cyan :foreground ,solarized-bg))))
+     `(ctbl:face-cell-select ((,class (:background ,solarized-hl :foreground ,solarized-emph
+                                                   :underline ,solarized-emph :weight bold))))
+     `(ctbl:face-continue-bar ((,class (:background ,solarized-hl :foreground ,yellow))))
+     `(ctbl:face-row-select ((,class (:background ,solarized-hl :foreground ,solarized-fg
+                                                  :underline t))))
 
      ;; coffee
      `(coffee-mode-class-name ((,class (:foreground ,yellow :weight bold))))
@@ -429,6 +434,10 @@ customize the resulting theme."
      ;; ediff
      `(ediff-fine-diff-A ((,class (:background ,orange-lc))))
      `(ediff-fine-diff-B ((,class (:background ,green-lc))))
+     `(ediff-fine-diff-C ((,class (:background ,yellow-lc))))
+     
+     `(ediff-current-diff-C ((,class (:background ,blue-lc))))
+     
      `(ediff-even-diff-A ((,class (:background ,solarized-comments
                                                :foreground ,solarized-fg-lc ))))
      `(ediff-odd-diff-A ((,class (:background ,solarized-comments
@@ -437,9 +446,15 @@ customize the resulting theme."
                                                :foreground ,solarized-fg-hc ))))
      `(ediff-odd-diff-B ((,class (:background ,solarized-comments
                                               :foreground ,solarized-fg-lc ))))
-
+     `(ediff-even-diff-C ((,class (:background ,solarized-comments
+                                               :foreground ,solarized-fg ))))
+     `(ediff-odd-diff-C ((,class (:background ,solarized-comments
+                                              :foreground ,solarized-bg ))))
+     
      ;; epc
-     `(epc:face-title ((,class (:foreground ,magenta :weight bold))))
+     `(epc:face-title ((,class (:foreground ,blue :background ,solarized-bg
+                                            :weight normal :underline nil))))
+
 
      ;; eshell
      `(eshell-prompt ((,class (:foreground ,yellow :weight bold))))
@@ -572,43 +587,43 @@ customize the resulting theme."
      `(gnus-group-news-5 ((,class (:weight bold :inherit gnus-group-news-5-empty))))
      `(gnus-group-news-6 ((,class (:weight bold :inherit gnus-group-news-6-empty))))
      `(gnus-group-news-low ((,class (:weight bold :inherit gnus-group-news-low-empty))))
-     `(gnus-header-content-face ((,class (:inherit message-header-other))))
-     `(gnus-header-from-face ((,class (:inherit message-header-other))))
-     `(gnus-header-name-face ((,class (:inherit message-header-name))))
-     `(gnus-header-newsgroups-face ((,class (:inherit message-header-other))))
-     `(gnus-header-subject-face ((,class (:inherit message-header-subject))))
-     `(gnus-summary-cancelled-face ((,class (:foreground ,orange))))
-     `(gnus-summary-high-ancient-face ((,class (:foreground ,blue))))
-     `(gnus-summary-high-read-face ((,class (:foreground ,green :weight bold))))
-     `(gnus-summary-high-ticked-face ((,class (:foreground ,orange :weight bold))))
-     `(gnus-summary-high-unread-face ((,class (:foreground ,solarized-fg :weight bold))))
+     `(gnus-header-content ((,class (:inherit message-header-other))))
+     `(gnus-header-from ((,class (:inherit message-header-other))))
+     `(gnus-header-name ((,class (:inherit message-header-name))))
+     `(gnus-header-newsgroups ((,class (:inherit message-header-other))))
+     `(gnus-header-subject ((,class (:inherit message-header-subject))))
+     `(gnus-summary-cancelled ((,class (:foreground ,orange))))
+     `(gnus-summary-high-ancient ((,class (:foreground ,blue :weight bold))))
+     `(gnus-summary-high-read ((,class (:foreground ,green :weight bold))))
+     `(gnus-summary-high-ticked ((,class (:foreground ,orange :weight bold))))
+     `(gnus-summary-high-unread ((,class (:foreground ,solarized-fg :weight bold))))
      `(gnus-summary-low-ancient ((,class (:foreground ,blue))))
      `(gnus-summary-low-read ((t (:foreground ,green))))
-     `(gnus-summary-low-ticked ((,class (:foreground ,orange :weight bold))))
+     `(gnus-summary-low-ticked ((,class (:foreground ,orange))))
      `(gnus-summary-low-unread ((,class (:foreground ,solarized-fg))))
      `(gnus-summary-normal-ancient ((,class (:foreground ,blue))))
      `(gnus-summary-normal-read ((,class (:foreground ,green))))
-     `(gnus-summary-normal-ticked ((,class (:foreground ,orange :weight bold))))
+     `(gnus-summary-normal-ticked ((,class (:foreground ,orange))))
      `(gnus-summary-normal-unread ((,class (:foreground ,solarized-fg))))
-     `(gnus-summary-selected-face ((,class (:foreground ,yellow :weight bold))))
-     `(gnus-cite-1-face ((,class (:foreground ,blue))))
-     `(gnus-cite-10-face ((,class (:foreground ,yellow))))
-     `(gnus-cite-11-face ((,class (:foreground ,yellow))))
-     `(gnus-cite-2-face ((,class (:foreground ,blue))))
-     `(gnus-cite-3-face ((,class (:foreground ,blue))))
-     `(gnus-cite-4-face ((,class (:foreground ,green))))
-     `(gnus-cite-5-face ((,class (:foreground ,green))))
-     `(gnus-cite-6-face ((,class (:foreground ,green))))
-     `(gnus-cite-7-face ((,class (:foreground ,red))))
-     `(gnus-cite-8-face ((,class (:foreground ,red))))
-     `(gnus-cite-9-face ((,class (:foreground ,red))))
+     `(gnus-summary-selected ((,class (:foreground ,yellow :weight bold))))
+     `(gnus-cite-1 ((,class (:foreground ,blue))))
+     `(gnus-cite-2 ((,class (:foreground ,blue))))
+     `(gnus-cite-3 ((,class (:foreground ,blue))))
+     `(gnus-cite-4 ((,class (:foreground ,green))))
+     `(gnus-cite-5 ((,class (:foreground ,green))))
+     `(gnus-cite-6 ((,class (:foreground ,green))))
+     `(gnus-cite-7 ((,class (:foreground ,red))))
+     `(gnus-cite-8 ((,class (:foreground ,red))))
+     `(gnus-cite-9 ((,class (:foreground ,red))))
+     `(gnus-cite-10 ((,class (:foreground ,yellow))))
+     `(gnus-cite-11 ((,class (:foreground ,yellow))))
      `(gnus-group-news-1-empty ((,class (:foreground ,yellow))))
      `(gnus-group-news-2-empty ((,class (:foreground ,green))))
      `(gnus-group-news-3-empty ((,class (:foreground ,green))))
      `(gnus-group-news-4-empty ((,class (:foreground ,blue))))
      `(gnus-group-news-5-empty ((,class (:foreground ,blue))))
-     `(gnus-group-news-6-empty ((,class (:foreground ,solarized-bg))))
-     `(gnus-group-news-low-empty ((,class (:foreground ,solarized-bg))))
+     `(gnus-group-news-6-empty ((,class (:foreground ,blue-lc))))
+     `(gnus-group-news-low-empty ((,class (:foreground ,solarized-comments))))
      `(gnus-signature ((,class (:foreground ,yellow))))
      `(gnus-x-face ((,class (:background ,solarized-fg :foreground ,solarized-bg))))
 
@@ -1270,7 +1285,11 @@ customize the resulting theme."
     (custom-theme-set-variables
      theme-name
      `(ansi-color-names-vector [,solarized-bg ,red ,green ,yellow
-                                             ,blue ,magenta ,cyan ,solarized-fg])
+                                              ,blue ,magenta ,cyan ,solarized-fg])
+
+     ;; compilation
+     `(compilation-message-face 'default)
+
      ;; fill-column-indicator
      `(fci-rule-color ,solarized-hl)
 
