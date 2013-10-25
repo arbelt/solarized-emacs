@@ -43,6 +43,52 @@
 ;;
 ;;; Code:
 
+(defgroup solarized nil
+  "Solarized theme options.
+The theme has to be reloaded after changing anything in this group."
+  :group 'faces)
+
+(defcustom solarized-distinct-fringe-background nil
+  "Make the fringe background different from the normal background color.
+Also affects linum-mode background."
+  :type 'boolean
+  :group 'solarized)
+
+(defcustom solarized-use-variable-pitch t
+  "Use variable pitch face for some headings and titles."
+  :type 'boolean
+  :group 'solarized)
+
+(defcustom solarized-high-contrast-mode-line nil
+  "Make the active/inactive mode line stand out more."
+  :type 'boolean
+  :group 'solarized)
+
+(defcustom solarized-height-minus-1 0.8
+  "Font size -1."
+  :type 'number
+  :group 'solarized)
+
+(defcustom solarized-height-plus-1 1.1
+  "Font size +1."
+  :type 'number
+  :group 'solarized)
+
+(defcustom solarized-height-plus-2 1.15
+  "Font size +2."
+  :type 'number
+  :group 'solarized)
+
+(defcustom solarized-height-plus-3 1.2
+  "Font size +3."
+  :type 'number
+  :group 'solarized)
+
+(defcustom solarized-height-plus-4 1.3
+  "Font size +4."
+  :type 'number
+  :group 'solarized)
+
 (defun create-solarized-theme (variant theme-name &optional childtheme)
   "Create a VARIANT of the theme named THEME-NAME.
 
@@ -120,7 +166,26 @@ customize the resulting theme."
          (cyan-hc (if (eq variant 'light) cyan-d cyan-l))
          (cyan-lc (if (eq variant 'light) cyan-l cyan-d))
          (green-hc (if (eq variant 'light) green-d green-l))
-         (green-lc (if (eq variant 'light) green-l green-d)))
+         (green-lc (if (eq variant 'light) green-l green-d))
+
+         ;; customize based face properties
+         (s-variable-pitch (if solarized-use-variable-pitch
+                               'variable-pitch 'default))
+         (s-fringe-bg (if solarized-distinct-fringe-background
+                          solarized-hl solarized-bg))
+
+         (s-mode-line-fg (if solarized-high-contrast-mode-line
+                             solarized-bg solarized-fg))
+         (s-mode-line-bg (if solarized-high-contrast-mode-line
+                             solarized-fg solarized-hl))
+         (s-mode-line-buffer-id-fg (if solarized-high-contrast-mode-line
+                                       'unspecified solarized-emph))
+         (s-mode-line-inactive-fg (if solarized-high-contrast-mode-line
+                                      solarized-fg solarized-comments))
+         (s-mode-line-inactive-bg (if solarized-high-contrast-mode-line
+                                      solarized-hl solarized-bg))
+         (s-mode-line-inactive-bc (if solarized-high-contrast-mode-line
+                                      solarized-fg solarized-hl)))
     (custom-theme-set-faces
      theme-name
      '(button ((t (:underline t))))
@@ -134,7 +199,7 @@ customize the resulting theme."
      `(mouse ((,class (:foreground ,solarized-bg :background ,solarized-fg
 				   :inverse-video t))))
      `(escape-glyph-face ((,class (:foreground ,red))))
-     `(fringe ((,class (:foreground ,solarized-fg :background ,solarized-bg))))
+     `(fringe ((,class (:foreground ,solarized-fg :background ,s-fringe-bg))))
      `(highlight ((,class (:background ,solarized-hl))))
      `(link ((,class (:foreground ,yellow :underline t :weight bold))))
      `(link-visited ((,class (:foreground ,yellow :underline t :weight normal))))
@@ -247,17 +312,17 @@ customize the resulting theme."
      `(mode-line
        ((,class (:inverse-video unspecified
                                 :underline unspecified
-                                :foreground ,solarized-fg
-                                :background ,solarized-hl
-                                :box (:line-width 1 :color ,solarized-hl
+                                :foreground ,s-mode-line-fg
+                                :background ,s-mode-line-bg
+                                :box (:line-width 1 :color ,s-mode-line-bg
                                                   :style unspecified)))))
-     `(mode-line-buffer-id ((,class (:foreground ,solarized-emph :weight bold))))
+     `(mode-line-buffer-id ((,class (:foreground ,s-mode-line-buffer-id-fg :weight bold))))
      `(mode-line-inactive
        ((,class (:inverse-video unspecified
-                                :underline ,solarized-comments
-                                :foreground ,solarized-comments
-                                :background ,solarized-bg
-                                :box (:line-width 1 :color ,solarized-bg
+                                :underline unspecified
+                                :foreground ,s-mode-line-inactive-fg
+                                :background ,s-mode-line-inactive-bg
+                                :box (:line-width 1 :color ,s-mode-line-inactive-bc
                                                   :style unspecified)))))
      `(header-line
        ((,class (:inverse-video unspecified
@@ -311,23 +376,23 @@ customize the resulting theme."
      `(font-latex-italic-face ((,class (:inherit italic :foreground ,solarized-emph))))
      `(font-latex-math-face ((,class (:foreground ,violet))))
      `(font-latex-sectioning-0-face ((,class (:inherit font-latex-sectioning-1-face
-                                                       :height 1.1))))
+                                                       :height ,solarized-height-plus-1))))
      `(font-latex-sectioning-1-face ((,class (:inherit font-latex-sectioning-2-face
-                                                       :height 1.1))))
+                                                       :height ,solarized-height-plus-1))))
      `(font-latex-sectioning-2-face ((,class (:inherit font-latex-sectioning-3-face
-                                                       :height 1.1))))
+                                                       :height ,solarized-height-plus-1))))
      `(font-latex-sectioning-3-face ((,class (:inherit font-latex-sectioning-4-face
-                                                       :height 1.1))))
+                                                       :height ,solarized-height-plus-1))))
      `(font-latex-sectioning-4-face ((,class (:inherit font-latex-sectioning-5-face
-                                                       :height 1.1))))
-     `(font-latex-sectioning-5-face ((,class (:inherit variable-pitch :foreground ,yellow
+                                                       :height ,solarized-height-plus-1))))
+     `(font-latex-sectioning-5-face ((,class (:inherit ,s-variable-pitch :foreground ,yellow
                                                        :weight bold))))
      `(font-latex-sedate-face ((,class (:foreground ,solarized-emph))))
-     `(font-latex-slide-title-face ((,class (:inherit (variable-pitch font-lock-type-face)
-                                                      :weight bold :height 1.2))))
+     `(font-latex-slide-title-face ((,class (:inherit (,s-variable-pitch font-lock-type-face)
+                                                      :weight bold :height ,solarized-height-plus-3))))
      `(font-latex-string-face ((,class (:foreground ,cyan))))
-     `(font-latex-subscript-face ((,class (:height 0.8))))
-     `(font-latex-superscript-face ((,class (:height 0.8))))
+     `(font-latex-subscript-face ((,class (:height ,solarized-height-minus-1))))
+     `(font-latex-superscript-face ((,class (:height ,solarized-height-minus-1))))
      `(font-latex-verbatim-face ((,class (:inherit fixed-pitch :foreground ,solarized-fg
                                                    :slant italic))))
      `(font-latex-warning-face ((,class (:inherit bold :foreground ,orange))))
@@ -344,10 +409,10 @@ customize the resulting theme."
      `(ac-yasnippet-selection-face ((,class (:background ,yellow-lc :foreground ,yellow-hc))))
 
      ;; auto highlight symbol
-     `(ahs-definition-face ((,class (:foreground ,magenta :background ,solarized-bg
+     `(ahs-definition-face ((,class (:foreground ,magenta :background unspecified
                                                  :slant normal))))
      `(ahs-edit-mode-face ((,class (:foreground ,solarized-bg :background ,magenta))))
-     `(ahs-face ((,class (:foreground ,magenta :background ,solarized-bg))))
+     `(ahs-face ((,class (:foreground ,magenta :background unspecified))))
      `(ahs-plugin-bod-face ((,class (:foreground ,magenta :background unspecified ))))
      `(ahs-plugin-defalt-face ((,class (:foreground ,magenta :background unspecified))))
      `(ahs-plugin-whole-buffer-face ((,class (:foreground ,magenta  :background unspecified))))
@@ -359,6 +424,9 @@ customize the resulting theme."
      `(android-mode-info-face ((,class (:foreground ,solarized-fg))))
      `(android-mode-verbose-face ((,class (:foreground ,solarized-comments))))
      `(android-mode-warning-face ((,class (:foreground ,yellow))))
+
+     ;; anzu-mode
+     `(anzu-mode-line ((,class (:foreground ,magenta :weight bold))))
 
      ;; bm
      `(bm-face ((,class (:background ,yellow-lc :foreground ,solarized-bg))))
@@ -380,8 +448,8 @@ customize the resulting theme."
      `(cfw:face-select ((,class (:background ,magenta-lc :foreground ,magenta-hc))))
      `(cfw:face-saturday ((,class (:foreground ,cyan-hc :background ,cyan-lc))))
      `(cfw:face-sunday ((,class (:foreground ,red-hc :background ,red-lc :weight bold))))
-     `(cfw:face-title ((,class (:inherit variable-pitch :foreground ,yellow
-                                         :weight bold :height 2.0))))
+     `(cfw:face-title ((,class (:inherit ,s-variable-pitch :foreground ,yellow
+                                         :weight bold :height ,solarized-height-plus-4))))
      `(cfw:face-today ((,class (:weight bold :background ,solarized-hl :foreground nil))))
      `(cfw:face-today-title ((,class (:background ,yellow-lc
                                                   :foreground ,yellow-hc :weight bold))))
@@ -415,9 +483,13 @@ customize the resulting theme."
      `(coffee-mode-function-param ((,class (:foreground ,violet :slant italic))))
 
      ;; custom
-     `(custom-variable-tag ((,class (:foreground ,cyan))))
+     `(custom-face-tag ((,class (:inherit ,s-variable-pitch :height ,solarized-height-plus-3
+                                          :foreground ,violet :weight bold))))
+     `(custom-variable-tag ((,class (:inherit ,s-variable-pitch
+                                              :foreground ,cyan :height ,solarized-height-plus-3))))
      `(custom-comment-tag ((,class (:foreground ,solarized-comments))))
-     `(custom-group-tag ((,class (:foreground ,blue))))
+     `(custom-group-tag ((,class (:inherit ,s-variable-pitch :foreground ,blue :height ,solarized-height-plus-3))))
+     `(custom-group-tag-1 ((,class (:inherit ,s-variable-pitch :foreground ,red :height ,solarized-height-plus-3))))
      `(custom-state ((,class (:foreground ,green))))
 
      ;; diff
@@ -435,9 +507,9 @@ customize the resulting theme."
      `(ediff-fine-diff-A ((,class (:background ,orange-lc))))
      `(ediff-fine-diff-B ((,class (:background ,green-lc))))
      `(ediff-fine-diff-C ((,class (:background ,yellow-lc))))
-     
+
      `(ediff-current-diff-C ((,class (:background ,blue-lc))))
-     
+
      `(ediff-even-diff-A ((,class (:background ,solarized-comments
                                                :foreground ,solarized-fg-lc ))))
      `(ediff-odd-diff-A ((,class (:background ,solarized-comments
@@ -450,7 +522,21 @@ customize the resulting theme."
                                                :foreground ,solarized-fg ))))
      `(ediff-odd-diff-C ((,class (:background ,solarized-comments
                                               :foreground ,solarized-bg ))))
-     
+
+     ;; diff-hl
+     `(diff-hl-change ((,class (:background ,blue-lc  :foreground ,blue-hc))))
+     `(diff-hl-delete ((,class (:background ,red-lc  :foreground ,red-hc))))
+     `(diff-hl-insert ((,class (:background ,green-lc  :foreground ,green-hc))))
+     `(diff-hl-unknown ((,class (:background ,cyan-lc   :foreground ,cyan-hc))))
+
+
+     ;; elfeed
+     `(elfeed-search-date-face ((,class (:foreground ,solarized-comments))))
+     `(elfeed-search-feed-face ((,class (:foreground ,solarized-comments))))
+     `(elfeed-search-tag-face ((,class (:foreground ,solarized-fg))))
+     `(elfeed-search-title-face ((,class (:foreground ,cyan))))
+
+
      ;; epc
      `(epc:face-title ((,class (:foreground ,blue :background ,solarized-bg
                                             :weight normal :underline nil))))
@@ -553,18 +639,25 @@ customize the resulting theme."
      `(git-gutter:unchanged ((,class (:background ,solarized-hl
                                                   :foreground ,solarized-bg
                                                   :weight bold))))
-     ;; I use the following git-gutter settings along with those faces
-     ;; (when window-system
-     ;;  (let ((symbol "."))
-     ;;    (setq git-gutter:added-sign symbol
-     ;;          git-gutter:deleted-sign symbol
-     ;;          git-gutter:modified-sign symbol
-     ;;          git-gutter:unchanged-sign " ")))
 
      ;; git-gutter-fr
      `(git-gutter-fr:added ((,class (:foreground ,green  :weight bold))))
      `(git-gutter-fr:deleted ((,class (:foreground ,red :weight bold))))
      `(git-gutter-fr:modified ((,class (:foreground ,blue :weight bold))))
+
+     ;; git-gutter+ and git-gutter+-fr
+     `(git-gutter+-added ((,class (:background ,green :foreground ,solarized-bg
+                                               :weight bold))))
+     `(git-gutter+-deleted ((,class (:background ,red :foreground ,solarized-bg
+                                                 :weight bold))))
+     `(git-gutter+-modified ((,class (:background ,blue :foreground ,solarized-bg
+                                                  :weight bold))))
+     `(git-gutter+-unchanged ((,class (:background ,solarized-hl
+                                                   :foreground ,solarized-bg
+                                                   :weight bold))))
+     `(git-gutter-fr+-added ((,class (:foreground ,green  :weight bold))))
+     `(git-gutter-fr+-deleted ((,class (:foreground ,red :weight bold))))
+     `(git-gutter-fr+-modified ((,class (:foreground ,blue :weight bold))))
 
      ;; guide-key
      `(guide-key/highlight-command-face ((,class (:foreground ,blue))))
@@ -741,7 +834,7 @@ customize the resulting theme."
      `(jedi:highlight-function-argument ((,class (:inherit bold))))
 
      ;; linum-mode
-     `(linum ((,class (:foreground ,solarized-comments :background ,solarized-bg))))
+     `(linum ((,class (:foreground ,solarized-comments :background ,s-fringe-bg))))
 
      ;; lusty-explorer
      `(lusty-directory-face ((,class (:inherit dired-directory))))
@@ -770,14 +863,25 @@ customize the resulting theme."
                                                        :box 1))))
      `(magit-log-sha1 ((,class (:foreground ,yellow))))
 
+     ;; markdown-mode
+     `(markdown-header-face ((,class (:foreground ,green))))
+     `(markdown-header-face-1 ((,class (:inherit markdown-header-face :height ,solarized-height-plus-4))))
+     `(markdown-header-face-2 ((,class (:inherit markdown-header-face :height ,solarized-height-plus-3))))
+     `(markdown-header-face-3 ((,class (:inherit markdown-header-face :height ,solarized-height-plus-2))))
+     `(markdown-header-face-4 ((,class (:inherit markdown-header-face :height ,solarized-height-plus-1))))
+     `(markdown-header-face-5 ((,class (:inherit markdown-header-face))))
+     `(markdown-header-face-6 ((,class (:inherit markdown-header-face))))
+
+
+
      ;; message-mode
      `(message-cited-text ((,class (:foreground ,solarized-comments))))
-     `(message-header-name ((,class (:foreground ,green))))
-     `(message-header-other ((,class (:foreground ,green))))
-     `(message-header-to ((,class (:foreground ,yellow :weight bold))))
-     `(message-header-cc ((,class (:foreground ,orange :weight bold))))
+     `(message-header-name ((,class (:foreground ,solarized-comments))))
+     `(message-header-other ((,class (:foreground ,solarized-fg :weight normal))))
+     `(message-header-to ((,class (:foreground ,solarized-fg :weight normal))))
+     `(message-header-cc ((,class (:foreground ,solarized-fg :weight normal))))
      `(message-header-newsgroups ((,class (:foreground ,yellow :weight bold))))
-     `(message-header-subject ((,class (:foreground ,orange))))
+     `(message-header-subject ((,class (:foreground ,cyan :weight normal))))
      `(message-header-xheader ((,class (:foreground ,cyan))))
      `(message-mml ((,class (:foreground ,yellow :weight bold))))
      `(message-separator ((,class (:foreground ,solarized-comments :slant italic))))
@@ -844,11 +948,34 @@ customize the resulting theme."
      `(mu4e-cited-6-face ((,class (:foreground ,green :slant italic :weight normal))))
      `(mu4e-cited-7-face ((,class (:foreground ,blue :slant italic :weight normal))))
      `(mu4e-flagged-face ((,class (:foreground ,magenta :weight bold))))
-     `(mu4e-view-url-number-face ((,class (:foreground ,orange :weight bold))))
+     `(mu4e-view-url-number-face ((,class (:foreground ,yellow :weight normal))))
      `(mu4e-warning-face ((,class (:foreground ,red :slant normal :weight bold))))
      `(mu4e-header-highlight-face
        ((,class (:inherit unspecified :foreground unspecified :background ,solarized-hl
                           :underline ,solarized-emph  :weight normal))))
+
+     ;; `(mu4e-draft-face ((,class (:inherit font-lock-string-face))))
+     ;; `(mu4e-footer-face ((,class (:inherit font-lock-comment-face))))
+     ;; `(mu4e-forwarded-face ((,class (:inherit font-lock-builtin-face :weight normal))))
+     ;; `(mu4e-header-face ((,class (:inherit default))))
+     ;; `(mu4e-header-marks-face ((,class (:inherit font-lock-preprocessor-face))))
+     ;; `(mu4e-header-title-face ((,class (:inherit font-lock-type-face))))
+     ;; `(mu4e-highlight-face ((,class (:inherit font-lock-pseudo-keyword-face :weight bold))))
+     ;; `(mu4e-moved-face ((,class (:inherit font-lock-comment-face :slant italic))))
+     ;; `(mu4e-ok-face ((,class (:inherit font-lock-comment-face :slant normal :weight bold))))
+     ;; `(mu4e-replied-face ((,class (:inherit font-lock-builtin-face :weight normal))))
+     ;; `(mu4e-system-face ((,class (:inherit font-lock-comment-face :slant italic))))
+     ;; `(mu4e-title-face ((,class (:inherit font-lock-type-face :weight bold))))
+     ;; `(mu4e-trashed-face ((,class (:inherit font-lock-comment-face :strike-through t))))
+     ;; `(mu4e-unread-face ((,class (:inherit font-lock-keyword-face :weight bold))))
+     ;; `(mu4e-view-attach-number-face ((,class (:inherit font-lock-variable-name-face :weight bold))))
+     `(mu4e-view-contact-face ((,class (:foreground ,solarized-fg  :weight normal))))
+     `(mu4e-view-header-key-face ((,class (:inherit message-header-name :weight normal))))
+     `(mu4e-view-header-value-face ((,class (:foreground ,cyan :weight normal :slant normal))))
+     `(mu4e-view-link-face ((,class (:inherit link))))
+     `(mu4e-view-special-header-value-face ((,class (:foreground ,blue :weight normal :underline nil
+                                                                 ))))
+
 
      ;; mumamo
      `(mumamo-background-chunk-submode1 ((,class (:background ,solarized-hl))))
@@ -868,11 +995,11 @@ customize the resulting theme."
      ;; org-mode
      `(org-agenda-structure
        ((,class (:foreground ,solarized-emph :background ,solarized-hl
-                             :weight bold :slant normal :inverse-video nil :height 1.1
+                             :weight bold :slant normal :inverse-video nil :height ,solarized-height-plus-1
                              :underline nil
                              :box (:line-width 2 :color ,solarized-bg)))))
      `(org-agenda-calendar-event ((,class (:foreground ,solarized-emph))))
-     `(org-agenda-calendar-sexp ((,class (:foreground ,violet))))
+     `(org-agenda-calendar-sexp ((,class (:foreground ,solarized-fg :slant italic))))
      `(org-agenda-date
        ((,class (:foreground ,solarized-comments :background ,solarized-bg :weight normal
                              :inverse-video nil :overline nil :slant normal :height 1.0
@@ -887,7 +1014,7 @@ customize the resulting theme."
                           :foreground ,blue :background ,solarized-bg))) t)
      `(org-agenda-done ((,class (:foreground ,solarized-comments :slant italic))) t)
      `(org-archived ((,class (:foreground ,solarized-comments :weight normal))))
-     `(org-block ((,class (:foreground ,solarized-comments :background ,solarized-hl))))
+     `(org-block ((,class (:foreground ,solarized-comments))))
      `(org-block-background ((,class (:background ,solarized-hl))))
      `(org-block-begin-line ((,class (:foreground ,solarized-comments :slant italic))))
      `(org-checkbox ((,class (:background ,solarized-bg :foreground ,solarized-fg
@@ -933,11 +1060,11 @@ customize the resulting theme."
      `(org-agenda-restriction-lock ((,class (:background ,yellow))))
      `(org-clock-overlay ((,class (:background ,yellow))))
      `(org-column ((,class (:background ,solarized-hl :strike-through nil
-                                        :underline nil :slant normal :weight normal))))
+                                        :underline nil :slant normal :weight normal :inherit default))))
      `(org-column-title ((,class (:background ,solarized-hl :underline t :weight bold))))
      `(org-date-selected ((,class (:foreground ,red :inverse-video t))))
      `(org-document-info ((,class (:foreground ,solarized-fg))))
-     `(org-document-title ((,class (:foreground ,solarized-emph  :weight bold :height 1.44))))
+     `(org-document-title ((,class (:foreground ,solarized-emph  :weight bold :height ,solarized-height-plus-4))))
      `(org-drawer ((,class (:foreground ,cyan))))
      `(org-footnote ((,class (:foreground ,magenta :underline t))))
      `(org-latex-and-export-specials ((,class (:foreground ,orange))))
@@ -953,11 +1080,11 @@ customize the resulting theme."
      `(outline-7 ((,class (:inherit org-level-7))))
      `(outline-8 ((,class (:inherit org-level-8))))
 
-     ;; perspective
-     `(persp-selected-face ((,class (:foreground ,blue :weight bold))))
+     ;; parenfaceu
+     `(paren-face  ((,class (:foreground ,solarized-comments))))
 
      ;; pretty-mode
-     `(pretty-mode-symbol-face  ((,class (:foreground ,green))))
+     `(pretty-mode-symbol-face  ((,class (:foreground ,yellow :weight normal))))
 
      ;; popup
      `(popup-face ((,class (:background ,solarized-hl :foreground ,solarized-fg))))
@@ -1044,27 +1171,27 @@ customize the resulting theme."
      `(slime-repl-inputed-output-face ((,class (:foreground ,red))))
 
      ;; speedbar
-     `(speedbar-button-face ((,class (:inherit variable-pitch
+     `(speedbar-button-face ((,class (:inherit ,s-variable-pitch
                                                :foreground ,solarized-comments))))
-     `(speedbar-directory-face ((,class (:inherit variable-pitch :foreground ,blue))))
-     `(speedbar-file-face ((,class (:inherit variable-pitch :foreground ,solarized-fg))))
-     `(speedbar-highlight-face ((,class (:inherit variable-pitch :background ,solarized-hl))))
-     `(speedbar-selected-face ((,class (:inherit variable-pitch
+     `(speedbar-directory-face ((,class (:inherit ,s-variable-pitch :foreground ,blue))))
+     `(speedbar-file-face ((,class (:inherit ,s-variable-pitch :foreground ,solarized-fg))))
+     `(speedbar-highlight-face ((,class (:inherit ,s-variable-pitch :background ,solarized-hl))))
+     `(speedbar-selected-face ((,class (:inherit ,s-variable-pitch
                                                  :foreground ,yellow :underline t))))
-     `(speedbar-separator-face ((,class (:inherit variable-pitch
+     `(speedbar-separator-face ((,class (:inherit ,s-variable-pitch
                                                   :background ,blue :foreground ,solarized-bg
                                                   :overline ,cyan-lc))))
-     `(speedbar-tag-face ((,class (:inherit variable-pitch :foreground ,green))))
+     `(speedbar-tag-face ((,class (:inherit ,s-variable-pitch :foreground ,green))))
 
      ;; sunrise commander headings
      `(sr-active-path-face ((,class (:background ,blue :foreground ,solarized-bg
-                                                 :height 100  :weight bold))))
+                                                 :height ,solarized-height-plus-1  :weight bold))))
      `(sr-editing-path-face ((,class (:background ,yellow :foreground ,solarized-bg
-                                                  :weight bold :height 100))))
+                                                  :weight bold :height ,solarized-height-plus-1))))
      `(sr-highlight-path-face ((,class (:background ,green :foreground ,solarized-bg
-                                                    :weight bold :height 100))))
+                                                    :weight bold :height ,solarized-height-plus-1))))
      `(sr-passive-path-face ((,class (:background ,solarized-comments :foreground ,solarized-bg
-                                                  :weight bold :height 100))))
+                                                  :weight bold :height ,solarized-height-plus-1))))
      ;; sunrise commander marked
      `(sr-marked-dir-face ((,class (:inherit dired-marked))))
      `(sr-marked-file-face ((,class (:inherit dired-marked))))
@@ -1116,7 +1243,7 @@ customize the resulting theme."
      ;; tooltip. (NOTE: This setting has no effect on the os widgets for me
      ;; zencoding uses this)
      `(tooltip ((,class (:background ,yellow-lc :foreground ,yellow-hc
-                                     :inherit variable-pitch))))
+                                     :inherit ,s-variable-pitch))))
 
      ;; tuareg
      `(tuareg-font-lock-governing-face ((,class (:foreground ,magenta :weight bold))))
@@ -1172,10 +1299,11 @@ customize the resulting theme."
      `(web-mode-builtin-face ((,class (:foreground ,red))))
      `(web-mode-comment-face ((,class (:foreground ,solarized-comments))))
      `(web-mode-constant-face ((,class (:foreground ,blue :weight bold))))
+     `(web-mode-current-element-highlight-face ((,class
+                                                 (:underline unspecified :weight unspecified
+                                                             :background ,solarized-hl))))
      `(web-mode-css-at-rule-face ((,class (:foreground ,violet :slant italic))))
-     `(web-mode-css-prop-face ((,class (:foreground ,violet))))
      `(web-mode-css-pseudo-class-face ((,class (:foreground ,green :slant italic))))
-     `(web-mode-css-rule-face ((,class (:foreground ,blue))))
      `(web-mode-doctype-face ((,class (:foreground ,solarized-comments
                                                    :slant italic :weight bold))))
      `(web-mode-folded-face ((,class (:underline t))))
@@ -1183,20 +1311,39 @@ customize the resulting theme."
      `(web-mode-html-attr-name-face ((,class (:foreground ,blue :slant normal))))
      `(web-mode-html-attr-value-face ((,class (:foreground ,cyan :slant italic))))
      `(web-mode-html-tag-face ((,class (:foreground ,green))))
-     `(web-mode-keyword-face ((,class (:foreground ,yellow :weight bold))))
-     `(web-mode-preprocessor-face ((,class (:foreground ,yellow  :slant italic :weight bold))))
+     `(web-mode-keyword-face ((,class (:foreground ,yellow :weight normal))))
+     `(web-mode-preprocessor-face ((,class (:foreground ,yellow :slant normal :weight unspecified))))
      `(web-mode-string-face ((,class (:foreground ,cyan))))
      `(web-mode-type-face ((,class (:foreground ,yellow))))
      `(web-mode-variable-name-face ((,class (:foreground ,blue))))
-     `(web-mode-server-background-face ((,class (:background ,solarized-bg))))
-     `(web-mode-server-comment-face ((,class (:inherit web-mode-comment-face))))
-     `(web-mode-server-string-face ((,class (:inherit web-mode-string-face))))
      `(web-mode-warning-face ((,class (:inherit font-lock-warning-face))))
-     `(web-mode-whitespaces-face ((,class (:background ,red))))
+     `(web-mode-block-attr-name-face ((,class (:inherit web-mode-html-attr-name-face))))
+     `(web-mode-block-attr-value-face ((,class (:inherit web-mode-html-attr-value-face))))
+     `(web-mode-block-comment-face ((,class (:inherit web-mode-comment-face))))
+     `(web-mode-block-control-face ((,class (:inherit font-lock-preprocessor-face))))
+     `(web-mode-block-face ((,class (:background unspecified))))
+     `(web-mode-block-string-face ((,class (:inherit web-mode-string-face))))
+     `(web-mode-comment-keyword-face ((,class (:box 1 :weight bold))))
+     `(web-mode-css-color-face ((,class (:inherit font-lock-builtin-face))))
+     `(web-mode-css-function-face ((,class (:inherit font-lock-builtin-face))))
+     `(web-mode-css-priority-face ((,class (:inherit font-lock-builtin-face))))
+     `(web-mode-css-property-name-face ((,class (:inherit font-lock-variable-name-face))))
+     `(web-mode-css-selector-face ((,class (:inherit font-lock-keyword-face))))
+     `(web-mode-css-string-face ((,class (:inherit web-mode-string-face))))
+     `(web-mode-javascript-string-face ((,class (:inherit web-mode-string-face))))
+     `(web-mode-json-context-face ((,class (:foreground ,violet))))
+     `(web-mode-json-key-face ((,class (:foreground ,violet))))
+     `(web-mode-json-string-face ((,class (:inherit web-mode-string-face))))
+     `(web-mode-param-name-face ((,class (:foreground ,solarized-fg))))
+     `(web-mode-part-comment-face ((,class (:inherit web-mode-comment-face))))
+     `(web-mode-part-face ((,class (:inherit web-mode-block-face))))
+     `(web-mode-part-string-face ((,class (:inherit web-mode-string-face))))
+     `(web-mode-symbol-face ((,class (:foreground ,yellow))))
+     `(web-mode-whitespace-face ((,class (:background ,red))))
 
      ;; whitespace-mode
      `(whitespace-space ((,class (:background unspecified :foreground ,solarized-comments
-                             :inverse-video unspecified :slant italic))))
+                                              :inverse-video unspecified :slant italic))))
      `(whitespace-hspace ((,class (:background unspecified :foreground ,solarized-emph
                                                :inverse-video unspecified))))
      `(whitespace-tab ((,class (:background unspecified :foreground ,red
@@ -1241,7 +1388,6 @@ customize the resulting theme."
      `(wl-highlight-summary-new-face ((,class (:foreground ,blue))))
      `(wl-highlight-summary-normal-face ((,class (:foreground ,solarized-fg))))
      `(wl-highlight-summary-thread-top-face ((,class (:foreground ,yellow))))
-     `(wl-highlight-summary-important-flag-face ((,class (:foreground ,orange))))
      `(wl-highlight-thread-indent-face ((,class (:foreground ,magenta))))
      `(wl-highlight-summary-refiled-face ((,class (:foreground ,solarized-fg))))
      `(wl-highlight-summary-displaying-face ((,class (:underline t :weight bold))))
@@ -1260,17 +1406,6 @@ customize the resulting theme."
 
      ;; window-number-mode
      `(window-number-face ((,class (:foreground ,green))))
-
-     ;; workgroups
-     `(wg-mode-line-face ((,class (:foreground ,blue :weight bold))))
-     `(wg-divider-face ((,class (:foreground ,solarized-fg-lc))))
-     `(wg-brace-face ((,class (:foreground ,solarized-fg-lc))))
-     `(wg-current-workgroup-face ((,class (:foreground ,magenta :weight bold))))
-     `(wg-previous-workgroup-face ((,class (:foreground ,blue))))
-     `(wg-message-face ((,class (:foreground ,green))))
-     `(wg-frame-face ((,class (:foreground ,orange))))
-     `(wg-filename-face ((,class (:foreground ,yellow))))
-     `(wg-command-face ((,class (:foreground ,blue))))
 
      ;; yascroll
      `(yascroll:thumb-text-area
@@ -1293,6 +1428,9 @@ customize the resulting theme."
      ;; fill-column-indicator
      `(fci-rule-color ,solarized-hl)
 
+     ;; magit
+     `(magit-diff-use-overlays nil)
+
      ;; highlight-changes
      `(highlight-changes-colors '(,magenta ,violet))
 
@@ -1312,24 +1450,24 @@ customize the resulting theme."
 
      ;; vc
      `(vc-annotate-color-map
-      '((20 . ,red)
-        (40 . "#CF4F1F")
-        (60 . "#C26C0F")
-        (80 . ,yellow)
-        (100 . "#AB8C00")
-        (120 . "#A18F00")
-        (140 . "#989200")
-        (160 . "#8E9500")
-        (180 . ,green)
-        (200 . "#729A1E")
-        (220 . "#609C3C")
-        (240 . "#4E9D5B")
-        (260 . "#3C9F79")
-        (280 . ,cyan)
-        (300 . "#299BA6")
-        (320 . "#2896B5")
-        (340 . "#2790C3")
-        (360 . ,blue)))
+       '((20 . ,red)
+         (40 . "#CF4F1F")
+         (60 . "#C26C0F")
+         (80 . ,yellow)
+         (100 . "#AB8C00")
+         (120 . "#A18F00")
+         (140 . "#989200")
+         (160 . "#8E9500")
+         (180 . ,green)
+         (200 . "#729A1E")
+         (220 . "#609C3C")
+         (240 . "#4E9D5B")
+         (260 . "#3C9F79")
+         (280 . ,cyan)
+         (300 . "#299BA6")
+         (320 . "#2896B5")
+         (340 . "#2790C3")
+         (360 . ,blue)))
      `(vc-annotate-very-old-color nil)
      `(vc-annotate-background nil)
 
